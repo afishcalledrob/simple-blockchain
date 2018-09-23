@@ -6,6 +6,6 @@ describe('Block', function() {
     })
     
     it('calls calculateHash function to generate current Hash upon initialization', function() {
-        expect(block.calculateHash()).toEqual("0001/01/2018test block");
+        expect(block.calculateHash()).toEqual("001/01/2018test block");
     })
 })
