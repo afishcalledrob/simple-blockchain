@@ -25,4 +25,9 @@ class Blockchain{
    getLastBlock() {
        return this.chain[this.chain.length - 1];
    }
+   
+   addBlock(index, timestamp, data) {
+       var newBlock = new Block(index, timestamp, data, this.getLastBlock().currentHash);
+       this.chain.push(newBlock);
+   }
 }

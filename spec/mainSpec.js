@@ -29,4 +29,11 @@ describe('Blockchain', function() {
             expect(specBlock.timestamp).toEqual("01/01/2018");
         })
     })
+    
+    describe('addBlock()', function() {
+        it('creates a new block and adds it to the chain array', function() {
+            blockchain.addBlock(1, "02/01/2018", "data");
+            expect(blockchain.getLastBlock().previousHash).toEqual("001/01/2018This is the genesis block");
+        })
+    })
 })
