@@ -30,4 +30,18 @@ class Blockchain{
        var newBlock = new Block(index, timestamp, data, this.getLastBlock().currentHash);
        this.chain.push(newBlock);
    }
+   
+   isChainValid() {
+       for(let i = 1; i < this.chain.length; i++) {
+           const currentBlock = this.chain[i];
+           const previousBlock = this.chain[i-1];
+           if(currentBlock.calculateHash() !== currentBlock.currentHash) {
+               return false;
+           }
+           if(currentBlock.previousHash !== previousBlock.currentHash) {
+               return false;
+           }
+       }
+       return true;
+   }
 }

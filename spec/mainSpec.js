@@ -36,4 +36,35 @@ describe('Blockchain', function() {
             expect(blockchain.getLastBlock().previousHash).toEqual("001/01/2018This is the genesis block");
         })
     })
+    
+    describe('isChainValid()', function() {
+        it('should return true for a chain constructed purely with the built methods', function() {
+            blockchain.addBlock(1, "02/01/2018", "data");
+            blockchain.addBlock(2, "03/01/2018", "data2");
+            blockchain.addBlock(3, "04/01/2018", "data3");
+            blockchain.addBlock(4, "05/01/2018", "data4");
+            expect(blockchain.isChainValid()).toEqual(true);
+        })
+        
+        it('should return false for a chain in which a block is added with a hash not based on the calculateHash method', function() {
+            blockchain.addBlock(1, "02/01/2018", "data");
+            blockchain.addBlock(2, "03/01/2018", "data2");
+            blockchain.addBlock(3, "04/01/2018", "data3");
+            blockchain.addBlock(4, "05/01/2018", "data4");
+            var alteredBlock = blockchain.getLastBlock();
+            alteredBlock.currentHash = "xx";
+            blockchain.chain.splice(4, 1, alteredBlock);
+            expect(blockchain.isChainValid()).toEqual(false);
+        })
+        
+        it('should return false for a chain in which a blocks previous hash is not equal to the hash of a previous block', function() {
+            blockchain.addBlock(1, "02/01/2018", "data");
+            blockchain.addBlock(2, "03/01/2018", "data2");
+            blockchain.addBlock(3, "04/01/2018", "data3");
+            blockchain.addBlock(4, "05/01/2018", "data4");
+            var alteredBlock = blockchain.createGenesisBlock()
+            blockchain.chain.splice(3, 1, alteredBlock);
+            expect(blockchain.isChainValid()).toEqual(false);
+        })
+    })
 })
