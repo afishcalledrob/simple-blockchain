@@ -4,11 +4,12 @@ class Block{
         this.timestamp = timestamp;
         this.data = data;
         this.previousHash = previousHash;
+        this.nonce = (Math.floor((Math.random() * 9) + 1)).toString() + (Math.floor((Math.random() * 9) + 1)).toString() + (Math.floor((Math.random() * 9) + 1)).toString();
         this.currentHash = this.calculateHash();
     }
     
     calculateHash(){
-        return this.index.toString() + this.timestamp + this.data;
+        return this.nonce + this.index.toString() + this.timestamp + this.data;
         
     }
 }

@@ -6,7 +6,7 @@ describe('Block', function() {
     })
     
     it('calls calculateHash function to generate current Hash upon initialization', function() {
-        expect(block.currentHash).toEqual("001/01/2018test block");
+        expect(block.currentHash.substr(3, 21)).toEqual("001/01/2018test block");
     })
 })
 
@@ -33,7 +33,7 @@ describe('Blockchain', function() {
     describe('addBlock()', function() {
         it('creates a new block and adds it to the chain array', function() {
             blockchain.addBlock(1, "02/01/2018", "data");
-            expect(blockchain.getLastBlock().previousHash).toEqual("001/01/2018This is the genesis block");
+            expect(blockchain.getLastBlock().previousHash.substr(3, 36)).toEqual("001/01/2018This is the genesis block");
         })
     })
     
