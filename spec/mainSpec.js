@@ -22,4 +22,11 @@ describe('Blockchain', function() {
             expect(blockchain.chain[0].data).toEqual("This is the genesis block");
         })
     })
+    
+    describe('getLastBlock()', function() {
+        it('extracts the most recent block from the chain array', function() {
+            var specBlock = blockchain.getLastBlock();
+            expect(specBlock.timestamp).toEqual("01/01/2018");
+        })
+    })
 })
