@@ -7,9 +7,17 @@ describe('Block', function() {
     
     describe('calculateHash', function() {
         it('calls calculateHash function to generate current Hash upon initialization', function() {
-        block.calculateHash()
+        block.calculateHash();
         expect(block.currentHash.substr(3, 21)).toEqual("001/01/2018test block");
+      })
     })
+    
+    describe('proofOfWork', function() {
+        it('requires the first three characters of hash to be 0', function() {
+            block.calculateHash();
+            block.proofOfWork();
+            expect(block.currentHash).toEqual("000001/01/2018test block");
+        })
     })
 })
 

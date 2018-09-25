@@ -4,12 +4,17 @@ class Block{
         this.timestamp = timestamp;
         this.data = data;
         this.previousHash = previousHash;
-        this.nonce = (Math.floor((Math.random() * 1) + 0)).toString() + (Math.floor((Math.random() * 1) + 0)).toString() + (Math.floor((Math.random() * 1) + 0)).toString();
         this.currentHash;
     }
     
     calculateHash(){
-        this.currentHash = this.nonce + this.index.toString() + this.timestamp + this.data;
+        this.currentHash = (Math.floor((Math.random() * 9) + 0)).toString() + (Math.floor((Math.random() * 9) + 0)).toString() + (Math.floor((Math.random() * 9) + 0)).toString() + this.index.toString() + this.timestamp + this.data;
+    }
+    
+    proofOfWork() {
+        while(this.currentHash.substring(0, 3) !== "000") {
+            this.calculateHash();
+        }
     }
 }
 
@@ -38,7 +43,7 @@ class Blockchain{
        for(let i = 1; i < this.chain.length; i++) {
            const currentBlock = this.chain[i];
            const previousBlock = this.chain[i-1];
-           if(currentBlock.nonce + currentBlock.index.toString() + currentBlock.timestamp + currentBlock.data !== currentBlock.currentHash) {
+           if(currentBlock.index.toString() + currentBlock.timestamp + currentBlock.data !== currentBlock.currentHash.substring(3)) {
                return false;
            }
            if(currentBlock.previousHash !== previousBlock.currentHash) {
