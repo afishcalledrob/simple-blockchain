@@ -5,8 +5,11 @@ describe('Block', function() {
         block = new Block(0, "01/01/2018", "test block", "0");
     })
     
-    it('calls calculateHash function to generate current Hash upon initialization', function() {
+    describe('calculateHash', function() {
+        it('calls calculateHash function to generate current Hash upon initialization', function() {
+        block.calculateHash()
         expect(block.currentHash.substr(3, 21)).toEqual("001/01/2018test block");
+    })
     })
 })
 

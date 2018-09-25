@@ -5,15 +5,11 @@ class Block{
         this.data = data;
         this.previousHash = previousHash;
         this.nonce = (Math.floor((Math.random() * 1) + 0)).toString() + (Math.floor((Math.random() * 1) + 0)).toString() + (Math.floor((Math.random() * 1) + 0)).toString();
-        this.currentHash = this.calculateHash();
+        this.currentHash;
     }
     
     calculateHash(){
-        var nonceValue;
-        while (nonceValue !== "000") {
-            nonceValue = this.nonce;
-        }
-        return nonceValue + this.index.toString() + this.timestamp + this.data;
+        this.currentHash = this.nonce + this.index.toString() + this.timestamp + this.data;
     }
 }
 
@@ -23,7 +19,9 @@ class Blockchain{
    }
    
    createGenesisBlock() {
-       return new Block(0, "01/01/2018", "This is the genesis block", "0");
+       var genesisBlock = new Block(0, "01/01/2018", "This is the genesis block", "0");
+       genesisBlock.calculateHash();
+       return genesisBlock;
    }
    
    getLastBlock() {
@@ -32,6 +30,7 @@ class Blockchain{
    
    addBlock(index, timestamp, data) {
        var newBlock = new Block(index, timestamp, data, this.getLastBlock().currentHash);
+       newBlock.calculateHash();
        this.chain.push(newBlock);
    }
    
@@ -39,7 +38,7 @@ class Blockchain{
        for(let i = 1; i < this.chain.length; i++) {
            const currentBlock = this.chain[i];
            const previousBlock = this.chain[i-1];
-           if(currentBlock.calculateHash() !== currentBlock.currentHash) {
+           if(currentBlock.nonce + currentBlock.index.toString() + currentBlock.timestamp + currentBlock.data !== currentBlock.currentHash) {
                return false;
            }
            if(currentBlock.previousHash !== previousBlock.currentHash) {
