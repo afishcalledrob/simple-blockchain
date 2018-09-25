@@ -26,6 +26,7 @@ class Blockchain{
    createGenesisBlock() {
        var genesisBlock = new Block(0, "01/01/2018", "This is the genesis block", "0");
        genesisBlock.calculateHash();
+       genesisBlock.proofOfWork();
        return genesisBlock;
    }
    
@@ -36,6 +37,7 @@ class Blockchain{
    addBlock(index, timestamp, data) {
        var newBlock = new Block(index, timestamp, data, this.getLastBlock().currentHash);
        newBlock.calculateHash();
+       newBlock.proofOfWork();
        this.chain.push(newBlock);
    }
    
