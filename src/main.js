@@ -4,13 +4,16 @@ class Block{
         this.timestamp = timestamp;
         this.data = data;
         this.previousHash = previousHash;
-        this.nonce = (Math.floor((Math.random() * 9) + 1)).toString() + (Math.floor((Math.random() * 9) + 1)).toString() + (Math.floor((Math.random() * 9) + 1)).toString();
+        this.nonce = (Math.floor((Math.random() * 1) + 0)).toString() + (Math.floor((Math.random() * 1) + 0)).toString() + (Math.floor((Math.random() * 1) + 0)).toString();
         this.currentHash = this.calculateHash();
     }
     
     calculateHash(){
-        return this.nonce + this.index.toString() + this.timestamp + this.data;
-        
+        var nonceValue;
+        while (nonceValue !== "000") {
+            nonceValue = this.nonce;
+        }
+        return nonceValue + this.index.toString() + this.timestamp + this.data;
     }
 }
 
